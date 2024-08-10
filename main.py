@@ -7,7 +7,7 @@ def create_team(h_skill: list, s_skill: list) -> list:
     :param s_skill: Lista de pessoas com habilidades de comunicação e de liderança
     :return: Retorna uma matriz com todos os grupos criados.
     """
-    num_teams = len(h_skill) // 6
+    num_of_teams = len(h_skill) // 6
     pass
 
 def populate_team(teams: list, general: list) -> list:
