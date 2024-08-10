@@ -7,7 +7,7 @@ hard_skill: list = [
     "Pat Hahn",
     "Candy Shea",
     "Iris Platt",
-    "Walter Hanson",
+    "Walter Hanson"
 ]
 
 # pessoas com habilidades em liderança ou comunicação
@@ -16,7 +16,7 @@ soft_skill: list = [
     "Brandy Brennan",
     "Gwen Tracy",
     "Frederick Rice",
-    "April Whitehead",
+    "April Whitehead"
 ]
 
 # pessoas com outras habilidades
