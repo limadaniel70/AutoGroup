@@ -12,14 +12,21 @@ def create_team(h_skill: list, s_skill: list) -> dict:
     """
     all_teams = {}
 
-    num_teams = min(len(h_skill), len(s_skill))
-    for i in range(num_teams):
-        all_teams.update({f"group{i + 1}": {
-            "membros": [h_skill[i], s_skill[i]]
+    # Como a quantidade de grupos é em função das pessoas com conhecimento técnico
+    # os grupos são inicados com uma pessoa com conhecimento técnico.
+    for i in range(len(h_skill)):
+        all_teams.update({f"equipe {i + 1}": {
+            "membros": [h_skill[i]]
         }})
 
-    return all_teams
+    # Depois de inicializar os grupos, são adicionadas as pessoas com soft skills
+    if len(s_skill) >= 1:
+        for team_name, team_data in all_teams.items():
+            if len(s_skill) > 0:
+                team_data["membros"].append(s_skill.pop())
 
+
+    return all_teams
 
 def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> dict:
     """
