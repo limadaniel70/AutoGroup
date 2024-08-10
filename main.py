@@ -7,6 +7,7 @@ def create_team(h_skill: list, s_skill: list) -> dict:
     """
     Cria os times baseado na quantidade de pessoas com hard skills.
     :param h_skill: Lista de pessoas com habilidades tecnicas.
+    :param s_skill: Lista de pessoas com habilidades sociais.
     :return: Retorna um dicionário com todos os grupos criados.
     """
     all_teams = {}
@@ -20,7 +21,7 @@ def create_team(h_skill: list, s_skill: list) -> dict:
     return all_teams
 
 
-def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> list:
+def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> dict:
     """
     Adiciona pessoas com outras habilidades ao times criados anteriormente.
     :param teams: Todos os times.
