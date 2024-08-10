@@ -3,8 +3,8 @@ team_size: int = 6
 
 # pessoas com conhecimento técnico
 hard_skill: list = [
-    "Vivian Rodgers",
-    "Pat Hahn",
+    "Pete Anthony",
+    "Taylor Delaney",
     "Candy Shea",
     "Iris Platt",
     "Walter Hanson"
@@ -12,16 +12,16 @@ hard_skill: list = [
 
 # pessoas com habilidades em liderança ou comunicação
 soft_skill: list = [
-    "Pete Anthony",
-    "Brandy Brennan",
-    "Gwen Tracy",
-    "Frederick Rice",
-    "April Whitehead"
+    #"Vivian Rodgers",
+    #"Pat Hahn",
 ]
 
 # pessoas com outras habilidades
 general: list = [
-    "Taylor Delaney",
+    "Brandy Brennan",
+    "Gwen Tracy",
+    "Frederick Rice",
+    "April Whitehead"
     "Jorge Hester",
     "Betty Blackburn",
     "Ron Harden",
