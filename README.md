@@ -29,7 +29,7 @@ general: list = [
 ]
 ```
 
-<p style="font-size:70%">* A quantidade de grupos é em função da quantidade de pessoas com conhecimento técnico</p>
+<p style="font-size:70%">*A quantidade de grupos é em função da quantidade de pessoas com conhecimento técnico.</p>
 
 ---
 
@@ -74,4 +74,4 @@ Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arqu
     }
 }
 ```
-<p style="font-size:70%"> todos os nomes foram criados por um gerador aleatório</p>
+<p style="font-size:70%">*Todos os nomes foram criados por um gerador aleatório.</p>
