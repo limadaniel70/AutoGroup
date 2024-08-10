@@ -1,4 +1,4 @@
-from config.settings import hard_skill, soft_skill, general
+from config.settings import *
 from utils.json_utils import write_to_json_file
 import random
 
@@ -38,5 +38,5 @@ def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> list
 
 
 teams: dict = create_team(hard_skill, soft_skill)
-teams = populate_team(teams, general)
+teams = populate_team(teams, general, team_size)
 write_to_json_file(teams)
