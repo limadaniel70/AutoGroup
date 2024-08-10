@@ -1,8 +1,9 @@
 from config.settings import hard_skill, soft_skill, general
 from utils.json_utils import write_to_json_file
+import random
 
 
-def create_team(h_skill: list) -> list:
+def create_team(h_skill: list) -> dict:
     """
     Cria os times baseado na quantidade de pessoas com hard skills.
     :param h_skill: Lista de pessoas com habilidades tecnicas.
@@ -25,8 +26,15 @@ def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> list
     :param persons_per_team: A quantidade de pessoas em cada time (valor padrão = 6).
     :return: Retorna uma matriz contendo todos os participantes de cada time.
     """
-    pass
+    random.shuffle(general)
+
+    for team_name, team_data in teams.items():
+        while len(team_data["membros"]) < persons_per_team and general:
+            team_data["membros"].append(general.pop())
+
+    return teams
 
 
-teams = create_team(hard_skill)
+teams: dict = create_team(hard_skill)
+teams = populate_team(teams, general)
 write_to_json_file(teams)
