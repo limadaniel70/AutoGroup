@@ -1,5 +1,8 @@
+# quantidade de pessoas em cada equipe
+team_size: int = 6
+
 # pessoas com conhecimento técnico
-hard_skill = [
+hard_skill: list = [
     "Vivian Rodgers",
     "Pat Hahn",
     "Candy Shea",
@@ -8,7 +11,7 @@ hard_skill = [
 ]
 
 # pessoas com habilidades em liderança ou comunicação
-soft_skill = [
+soft_skill: list = [
     "Pete Anthony",
     "Brandy Brennan",
     "Gwen Tracy",
@@ -17,7 +20,7 @@ soft_skill = [
 ]
 
 # pessoas com outras habilidades
-general = [
+general: list = [
     "Taylor Delaney",
     "Jorge Hester",
     "Betty Blackburn",
