@@ -29,7 +29,7 @@ general: list = [
 ]
 ```
 
-<p style="font-size:70%">* É recomendado igualar o número de pessoas com soft skills ao de pessoas com hard skills para evitar que alguem fique de fora.</p>
+<p style="font-size:70%">* A quantidade de grupos é em função da quantidade de pessoas com conhecimento técnico</p>
 
 ---
 
