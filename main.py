@@ -11,7 +11,8 @@ def create_team(h_skill: list, s_skill: list) -> dict:
     :return: Retorna um dicionário com todos os grupos criados.
     """
     all_teams = {}
-
+    random.shuffle(s_skill)
+    
     # Como a quantidade de grupos é em função das pessoas com conhecimento técnico
     # os grupos são inicados com uma pessoa com conhecimento técnico.
     for i in range(len(h_skill)):
