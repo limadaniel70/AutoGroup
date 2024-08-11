@@ -12,20 +12,20 @@ hard_skill: list = [
 
 # pessoas com habilidades em liderança ou comunicação
 soft_skill: list = [
-    #"Vivian Rodgers",
-    #"Pat Hahn",
+    "Vivian Rodgers",
+    "Pat Hahn",
+    "Brandy Brennan",
+    "Gwen Tracy",
+    "Frederick Rice",
+    "April Whitehead",
+    "Jorge Hester",
+    "Betty Blackburn",
+    "Ron Harden",
+    "Angela Becker"
 ]
 
 # pessoas com outras habilidades
 general: list = [
-    "Brandy Brennan",
-    "Gwen Tracy",
-    "Frederick Rice",
-    "April Whitehead"
-    "Jorge Hester",
-    "Betty Blackburn",
-    "Ron Harden",
-    "Angela Becker",
     "Kayla Potter",
     "Miranda Elder",
     "Elsa Byrd",
