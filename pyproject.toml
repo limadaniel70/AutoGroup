@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "groupgenerator"
-version = "0.1.2"
+version = "0.1.3"
 description = "Cria grupos/equipes aleatórias baseadas em hard skills e soft skills."
 authors = ["Daniel Lima"]
 readme = "README.md"
