@@ -20,10 +20,8 @@ def create_team(h_skill: list, s_skill: list) -> dict:
         }})
 
     # Depois de inicializar os grupos, são adicionadas as pessoas com soft skills
-    if len(s_skill) >= 1:
-        for team_name, team_data in all_teams.items():
-            if len(s_skill) > 0:
-                team_data["membros"].append(s_skill.pop())
+    for i, person_s in enumerate(s_skill):
+        all_teams[f"equipe {i % len(h_skill) + 1}"]["membros"].append(person_s)
 
 
     return all_teams
