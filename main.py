@@ -1,56 +1,48 @@
-from config.settings import *
+import config.settings
 from utils.json_utils import write_to_json_file
 import random
 
 
-def create_team(h_skill: list, s_skill: list) -> dict:
-    """Inicializa os times com uma pessoa que possui habilidades técnicas e então
-    adiciona as times criados pessoas com habilidades sociais.
+class GroupGenerator:
 
-    Args:
-        h_skill (list): pessoas com habilidades técnicas.
-        s_skill (list): pessoas com habilidades sociais.
+    def create_team(self, n_of_teams) -> dict:
+        teams: dict = {}
+        for i in range(n_of_teams):
+            teams[f"equipe {i + 1}"] = {"membros": []}
 
-    Returns:
-        dict: retorna um dicionário contendo as pessoas que possuem alguma habilidade.
-    """
-    all_teams = {}
-    random.shuffle(s_skill)
-    
-    # Como a quantidade de grupos é em função das pessoas com conhecimento técnico
-    # os grupos são inicados com uma pessoa com conhecimento técnico.
-    for i in range(len(h_skill)):
-        all_teams[f"equipe {i + 1}"] = {
-            "membros" : [h_skill[i]]
-        }
+        return teams
 
-    # Depois de inicializar os grupos, são adicionadas as pessoas com soft skills
-    for i, person_s in enumerate(s_skill):
-        all_teams[f"equipe {i % len(h_skill) + 1}"]["membros"].append(person_s)
+    def populate_team(
+        self,
+        teams: dict,
+        h_skill: list,
+        s_skill: list,
+        general: list,
+        persons_per_team: int,
+    ) -> dict:
 
+        n_of_teams: int = len(teams)
 
-    return all_teams
+        # Adicionando as pessoas com hard skills
+        for i, person_h in enumerate(self.shuffle_team(h_skill)):
+            teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person_h)
 
-def populate_team(teams: dict, general: list, persons_per_team: int = 6) -> dict:
-    """Adiciona pessoas com outras habilidades aos times criados.
+        # Adicionando as pessoas com soft skills
+        for i, person_s in enumerate(self.shuffle_team(s_skill)):
+            teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person_s)
 
-    Args:
-        teams (dict): times criados anteriormente.
-        general (list): pessoas que serão alocadas nos times.
-        persons_per_team (int, optional): quantidade de pessoas em cada time. 
-        Padrão é 6.
+        general = self.shuffle_team(general)
+        for team_name, team_data in teams.items():
+            while len(team_data["membros"]) < persons_per_team and general:
+                team_data["membros"].append(general.pop())
 
-    Returns:
-        dict: retorna os grupos preenchidos.
-    """
-    random.shuffle(general)
+        return teams
 
-    for team_name, team_data in teams.items():
-        while len(team_data["membros"]) < persons_per_team and general:
-            team_data["membros"].append(general.pop())
-
-    return teams
+    @staticmethod
+    def shuffle_team(team: list) -> list:
+        random.shuffle(team)
+        return team
 
 
-teams: dict = create_team(hard_skill, soft_skill)
-write_to_json_file(populate_team(teams, general, team_size))
+# teams: dict = create_team(hard_skill, soft_skill)
+# write_to_json_file(populate_team(teams, general, team_size))
