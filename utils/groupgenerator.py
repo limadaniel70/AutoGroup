@@ -3,7 +3,7 @@ import random
 
 class GroupGenerator:
 
-    def create_team(self, n_of_teams: int) -> dict:
+    def create_empty_teams(self, n_of_teams: int) -> dict[str, dict[str, list[str]]]:
         """
         Cria um dicionário que representa as equipes, onde cada equipe é inicializada
         com uma lista vazia para os membros.
@@ -16,6 +16,7 @@ class GroupGenerator:
                 "equipe 1", "equipe 2", etc., e os valores são dicionários contendo
                 uma chave "membros" associada a uma lista vazia.
         """
+
         teams: dict = {}
         for i in range(n_of_teams):
             teams[f"equipe {i + 1}"] = {"membros": []}
@@ -24,12 +25,12 @@ class GroupGenerator:
 
     def populate_team(
         self,
-        teams: dict,
-        h_skill: list,
-        s_skill: list,
-        general: list,
+        teams: dict[str, dict[str, list[str]]],
+        h_skill: list[str],
+        s_skill: list[str],
+        general: list[str],
         persons_per_team: int,
-    ) -> dict:
+    ) -> dict[str, dict[str, list[str]]]:
         """
         Preenche as equipes com membros baseados em suas habilidades técnicas (hard skills),
         habilidades interpessoais (soft skills) e uma lista geral. A distribuição dos membros
@@ -70,7 +71,7 @@ class GroupGenerator:
         return teams
 
     @staticmethod
-    def shuffle_team(team: list) -> list:
+    def shuffle_team(team: list[str]) -> list[str]:
         """
         Embaralha a ordem dos membros em uma lista de forma aleatória.
 
