@@ -1,6 +1,9 @@
-import config.settings
-from utils import *
+from config.settings import *
+from utils.groupgenerator import GroupGenerator
+from utils.json_utils import write_to_json_file
 
-
-# teams: dict = create_team(hard_skill, soft_skill)
-# write_to_json_file(populate_team(teams, general, team_size))
+gg = GroupGenerator()
+teams = gg.create_empty_teams(number_of_teams)
+write_to_json_file(
+    gg.distribute_members(teams, hard_skill, soft_skill, general, team_size)
+)
