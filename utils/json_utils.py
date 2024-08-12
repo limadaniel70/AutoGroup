@@ -2,7 +2,7 @@ import json
 
 
 def write_to_json_file(data: dict, filename: str = "teams.json") -> None:
-     """Salva os times em um arquivoo JSON.
+    """Salva os times em um arquivoo JSON.
 
     Args:
         data (dict): todos os times criados.
