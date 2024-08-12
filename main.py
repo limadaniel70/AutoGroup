@@ -16,10 +16,10 @@ def create_team(h_skill: list, s_skill: list) -> dict:
     # Como a quantidade de grupos é em função das pessoas com conhecimento técnico
     # os grupos são inicados com uma pessoa com conhecimento técnico.
     for i in range(len(h_skill)):
-        all_teams.update({f"equipe {i + 1}": {
-            "membros": [h_skill[i]]
-        }})
-
+        all_teams[f"equipe {i + 1}"] = {
+            "membros" : [h_skill[i]]
+        }
+        
     # Depois de inicializar os grupos, são adicionadas as pessoas com soft skills
     for i, person_s in enumerate(s_skill):
         all_teams[f"equipe {i % len(h_skill) + 1}"]["membros"].append(person_s)
