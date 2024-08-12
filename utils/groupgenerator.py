@@ -23,7 +23,7 @@ class GroupGenerator:
 
         return teams
 
-    def populate_team(
+    def distribute_members(
         self,
         teams: dict[str, dict[str, list[str]]],
         h_skill: list[str],
