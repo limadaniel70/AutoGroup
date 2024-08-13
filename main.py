@@ -1,5 +1,5 @@
 from config.settings import *
-from utils.groupgenerator import GroupGenerator
+from utils.group_generator import GroupGenerator
 from utils.json_utils import write_to_json_file
 
 gg = GroupGenerator()
