@@ -7,6 +7,9 @@ Este projeto foi criado como forma de tornar mais fácil a criação de equipes 
 O primeiro passo é preencher o arquivo de configuração (config/settings.py) com os nomes e a quantidade de pessoas em cada time/equipe:
 
 ```python
+# quantidade de equipes.
+number_of_teams: int = 5
+
 # A quantidade de pessoas em cada equipe.
 # Note que, se o número de pessoas em cada equipe não for suficiente para alocar todas as pessoas, o excesso ficará sem grupo.
 team_size: int = 6
