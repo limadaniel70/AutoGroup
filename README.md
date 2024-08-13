@@ -15,7 +15,6 @@ number_of_teams: int = 5
 team_size: int = 6
 
 # pessoas com conhecimento técnico.
-# ! a quantidade de grupos é baseada na quantidade de pessoas com hard skills.
 hard_skill: list = [
     "pessoa 1",
     "pessoa 2",
