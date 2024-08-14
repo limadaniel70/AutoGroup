@@ -62,11 +62,13 @@ class GroupGenerator:
         for i, person_s in enumerate(self.shuffle_team(s_skill)):
             teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person_s)
 
-        # TODO: essa parte precisa ser revisada e reescrita
+        # Adicionando as pessoas restantes aos times
         general = self.shuffle_team(general)
-        for team_name, team_data in teams.items():
-            while len(team_data["membros"]) < persons_per_team and general:
-                team_data["membros"].append(general.pop())
+        for team in teams:
+            # Em python, uma lista vazia retorna false
+            # se a list tiver ao menos um lemento, ela retorna true
+            while len(team["membros"]) < persons_per_team and general:
+                team["membros"].append(general.pop())
 
         return teams
 
