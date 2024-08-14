@@ -25,7 +25,7 @@ class GroupGenerator:
         self.number_of_teams = n_of_teams
         self.hard_skills = self.__shuffle_team(h_skill)
         self.soft_skills = self.__shuffle_team(s_skill)
-        self.general = self.__shuffle_team(general)
+        self.other_skills = self.__shuffle_team(general)
         self.team_size = persons_per_team
         self.teams = self.__create_empty_teams()
         self.__distribute_members()
@@ -67,12 +67,11 @@ class GroupGenerator:
             )
 
         # Adicionando as pessoas restantes aos times
-        general = self.__shuffle_team(general)
         for team in self.teams:
             # Em python, uma lista vazia retorna false
             # se a list tiver ao menos um lemento, ela retorna true
-            while len(team["membros"]) < self.team_size and general:
-                team["membros"].append(general.pop())
+            while len(self.teams[team]["membros"]) < self.team_size and self.other_skills:
+                self.teams[team]["membros"].append(self.other_skills.pop())
 
     def __shuffle_team(self, team: list[str]) -> list[str]:
         """
