@@ -3,13 +3,37 @@ import random
 
 class GroupGenerator:
 
-    def create_empty_teams(self, n_of_teams: int) -> dict[str, dict[str, list[str]]]:
+    def __init__(
+        self,
+        n_of_teams: int,
+        h_skill: list[str],
+        s_skill: list[str],
+        general: list[str],
+        persons_per_team: int,
+    ) -> None:
+        """
+        Inicializa o gerador de grupos com o número de equipes, listas de habilidades
+        técnicas, habilidades interpessoais e uma lista geral, além do tamanho máximo de cada equipe.
+
+        Args:
+            n_of_teams (int): Número de equipes a serem criadas.
+            h_skill (list[str]): Lista de membros com habilidades técnicas.
+            s_skill (list[str]): Lista de membros com habilidades interpessoais.
+            general (list[str]): Lista de membros sem uma distinção específica de habilidades.
+            persons_per_team (int): Número máximo de membros permitido em cada equipe.
+        """
+        self.number_of_teams = n_of_teams
+        self.hard_skills = self.__shuffle_team(h_skill)
+        self.soft_skills = self.__shuffle_team(s_skill)
+        self.general = self.__shuffle_team(general)
+        self.team_size = persons_per_team
+        self.teams = self.__create_empty_teams()
+        self.__distribute_members()
+
+    def __create_empty_teams(self) -> dict[str, dict[str, list[str]]]:
         """
         Cria um dicionário que representa as equipes, onde cada equipe é inicializada
         com uma lista vazia para os membros.
-
-        Args:
-            n_of_teams (int): O número de equipes a serem criadas.
 
         Returns:
             dict: Um dicionário onde as chaves são os nomes das equipes no formato
@@ -18,62 +42,39 @@ class GroupGenerator:
         """
 
         teams: dict = {}
-        for i in range(n_of_teams):
+        for i in range(self.number_of_teams):
             teams[f"equipe {i + 1}"] = {"membros": []}
 
         return teams
 
-    def distribute_members(
-        self,
-        teams: dict[str, dict[str, list[str]]],
-        h_skill: list[str],
-        s_skill: list[str],
-        general: list[str],
-        persons_per_team: int,
-    ) -> dict[str, dict[str, list[str]]]:
+    def __distribute_members(self) -> None:
         """
         Preenche as equipes com membros baseados em suas habilidades técnicas (hard skills),
         habilidades interpessoais (soft skills) e uma lista geral. A distribuição dos membros
         é feita de forma cíclica entre as equipes.
-
-        Args:
-            teams (dict): Um dicionário que contém as equipes a serem preenchidas. As chaves
-                        são os nomes das equipes e os valores são dicionários com uma chave
-                        "membros", que é uma lista dos membros da equipe.
-            h_skill (list): Lista de membros com habilidades técnicas (hard skills) que serão
-                            distribuídos primeiro entre as equipes.
-            s_skill (list): Lista de membros com habilidades interpessoais (soft skills) que
-                            serão distribuídos após os membros com hard skills.
-            general (list): Lista de membros sem uma distinção específica de habilidades, que
-                            serão distribuídos após os membros com hard e soft skills.
-            persons_per_team (int): O número máximo de membros permitido em cada equipe.
-
-        Returns:
-            dict: O dicionário `teams` atualizado, onde cada equipe foi preenchida com membros
-                da lista de habilidades técnicas, habilidades interpessoais e lista geral.
         """
-        n_of_teams: int = len(teams)
 
         # Adicionando as pessoas com hard skills
-        for i, person_h in enumerate(self.shuffle_team(h_skill)):
-            teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person_h)
+        for i, person_h in enumerate(self.hard_skills):
+            self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
+                person_h
+            )
 
         # Adicionando as pessoas com soft skills
-        for i, person_s in enumerate(self.shuffle_team(s_skill)):
-            teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person_s)
+        for i, person_s in enumerate(self.soft_skills):
+            self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
+                person_s
+            )
 
         # Adicionando as pessoas restantes aos times
-        general = self.shuffle_team(general)
-        for team in teams:
+        general = self.__shuffle_team(general)
+        for team in self.teams:
             # Em python, uma lista vazia retorna false
             # se a list tiver ao menos um lemento, ela retorna true
-            while len(team["membros"]) < persons_per_team and general:
+            while len(team["membros"]) < self.team_size and general:
                 team["membros"].append(general.pop())
 
-        return teams
-
-    @staticmethod
-    def shuffle_team(team: list[str]) -> list[str]:
+    def __shuffle_team(self, team: list[str]) -> list[str]:
         """
         Embaralha a ordem dos membros em uma lista de forma aleatória.
 
