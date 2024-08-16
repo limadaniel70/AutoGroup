@@ -176,3 +176,5 @@ Essa forma de distribuição funciona adicionando os membros ao grupo até o gru
 ![Segunda distribuição](img/distribuição-2.gif)
 
 ## Conclusão
+
+Se for necessária a formação de equipes de forma aleatória e seja um requisito que não tenham grupos concentrando pessoas com habilidades técnicas e sociais, essa é a melhor e mais rápida forma de fazê-lo.
