@@ -1,3 +1,6 @@
+# quantidade de times
+number_of_teams: int = 5
+
 # quantidade de pessoas em cada equipe
 team_size: int = 6
 
