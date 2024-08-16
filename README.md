@@ -127,6 +127,7 @@ O segundo é preencher os grupos. Esse processo é realizado desta forma:
 
 ```python
 def distribute_members(self) -> None:
+    
     # Adicionando as pessoas com hard skills
     for i, person_h in enumerate(self.hard_skills):
         self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
@@ -141,8 +142,6 @@ def distribute_members(self) -> None:
 
     # Adicionando as pessoas restantes aos times
     for team in self.teams:
-        # Em python, uma lista vazia retorna false
-        # se a list tiver ao menos um lemento, ela retorna true
         while len(self.teams[team]["membros"]) < self.team_size and self.other_skills:
             self.teams[team]["membros"].append(self.other_skills.pop())
 ```
@@ -165,5 +164,15 @@ Este é um exemplo de como funciona:
 ![Primeira distribuição](img/distribuição-1.gif)
 
 ### Segunda forma de distribuição
+
+```python
+for team in self.teams:
+        while len(self.teams[team]["membros"]) < self.team_size and self.other_skills:
+            self.teams[team]["membros"].append(self.other_skills.pop())
+```
+
+Essa forma de distribuição funciona adicionando os membros ao grupo até o grupo ficar cheio e então passa para o próximo. Fazendo isso até acabarem os membros ou acabarem os grupos.
+
 ![Segunda distribuição](img/distribuição-2.gif)
+
 ## Conclusão
