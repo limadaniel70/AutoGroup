@@ -1,4 +1,15 @@
-# Introdução
+# Group Generator
+
+## Sumário
+
+1. [Introdução](#introdução)
+2. [Como utilizar](#como-utilizar)
+3. [Como funciona](#como-funciona)
+    1. [Priemira forma de distribuição](#primeira-forma-de-distribuição)
+    2. [Segunda forma de distribuição](#segunda-forma-de-distribuição)
+4. [Conclusão](#conclusão)
+
+## Introdução
 
 Este projeto foi criado como forma de tornar mais fácil a criação de equipes com membros aleatórios com a garantia de que as pessoas com conhecimento técnico ou habilidades sociais não fiquem concentradas em poucos grupos, mas distribuídas em vários grupos.
 
@@ -78,3 +89,81 @@ Exemplo de arquivo gerado pelo programa:
 ```
 
 *Todos os nomes foram criados por um gerador aleatório.
+
+---
+
+## Como funciona
+
+Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em outro momento:
+
+```python
+def create_empty_teams(self) -> dict[str, dict[str, list[str]]]:
+    teams: dict = {}
+        for i in range(self.number_of_teams):
+            teams[f"equipe {i + 1}"] = {"membros": []}
+
+        return teams
+```
+
+Essa função retorna um dicinário neste formato:
+
+```json
+{
+    "equipe 1" : {
+        "membros" : []
+    },
+    "equipe 2" : {
+        "membros" : []
+    },
+    "equipe 3" : {
+        "membros" : []
+    },
+
+    ...
+}
+```
+
+O segundo é preencher os grupos. Esse processo é realizado desta forma:
+
+```python
+def distribute_members(self) -> None:
+    # Adicionando as pessoas com hard skills
+    for i, person_h in enumerate(self.hard_skills):
+        self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
+            person_h
+        )
+
+    # Adicionando as pessoas com soft skills
+    for i, person_s in enumerate(self.soft_skills):
+        self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
+            person_s
+        )
+
+    # Adicionando as pessoas restantes aos times
+    for team in self.teams:
+        # Em python, uma lista vazia retorna false
+        # se a list tiver ao menos um lemento, ela retorna true
+        while len(self.teams[team]["membros"]) < self.team_size and self.other_skills:
+            self.teams[team]["membros"].append(self.other_skills.pop())
+```
+
+É percepitivel que a distribuiçãos dos membros ocorre em três fases distintas: primeiro são adicionados os membros de com hard skills de forma ciclíca e após são adicionas os membros com soft skills da mesma forma e, por fim, são adicionados os membros com outros tipos de habilidades de uma forma diferente das demais.
+
+### Primeira forma de distribuição
+
+```python
+for i, person_x in enumerate(self.x_skills):
+        self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
+            person_x
+        )
+```
+
+Para garantir que a distribuição não concentre pessoas com habilidades técnicas e sociais em um único grupo, essas pessoas são distribuídas em vários grupos de forma cíclica.
+
+Este é um exemplo de como funciona:
+
+![Primeira distribuição](img/distribuição-1.gif)
+
+### Segunda forma de distribuição
+![Segunda distribuição](img/distribuição-2.gif)
+## Conclusão
