@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "groupgenerator"
-version = "0.2.0"
+version = "0.2.1"
 description = "Cria grupos/equipes aleatórias baseadas em hard skills e soft skills."
 authors = ["Daniel Lima"]
 license = "MIT"
@@ -9,6 +9,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+pylint = "^3.2.6"
 
 [build-system]
 requires = ["poetry-core"]
