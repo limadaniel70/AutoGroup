@@ -5,7 +5,7 @@ number_of_teams: int = 5
 team_size: int = 6
 
 # pessoas com conhecimento técnico
-hard_skill: list = [
+hard_skill: list[str] = [
     "Pete Anthony",
     "Taylor Delaney",
     "Candy Shea",
@@ -14,7 +14,7 @@ hard_skill: list = [
 ]
 
 # pessoas com habilidades em liderança ou comunicação
-soft_skill: list = [
+soft_skill: list[str] = [
     "Vivian Rodgers",
     "Pat Hahn",
     "Brandy Brennan",
@@ -28,7 +28,7 @@ soft_skill: list = [
 ]
 
 # pessoas com outras habilidades
-general: list = [
+general: list[str] = [
     "Kayla Potter",
     "Miranda Elder",
     "Elsa Byrd",
