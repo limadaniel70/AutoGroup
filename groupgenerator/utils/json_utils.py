@@ -15,6 +15,6 @@ def write_to_json_file(data: dict, filename: str = "teams.json") -> None:
         f.write(json_data)
 
 
-def read_config_from_json_file() -> dict[int, int, list, list, list]:
-    # TODO: para uma futura implementação de interface ou cli
-    pass
+#def read_config_from_json_file() -> dict[int, int, list, list, list]:
+#    # TODO: para uma futura implementação de interface ou cli
+#    pass

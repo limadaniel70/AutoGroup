@@ -2,6 +2,10 @@ import random
 
 
 class GroupGenerator:
+    """
+    Crie equipes distribuindo as pessoas com habilidades
+    ténicas e sociais.
+    """
 
     def __init__(
         self,
@@ -12,8 +16,9 @@ class GroupGenerator:
         persons_per_team: int,
     ) -> None:
         """
-        Inicializa o gerador de grupos com o número de equipes, listas de habilidades
-        técnicas, habilidades interpessoais e uma lista geral, além do tamanho máximo de cada equipe.
+        Inicializa o gerador de grupos com o número de equipes,
+        listas de habilidades técnicas, habilidades interpessoais
+        e uma lista geral, além do tamanho máximo de cada equipe.
 
         Args:
             n_of_teams (int): Número de equipes a serem criadas.
@@ -27,10 +32,10 @@ class GroupGenerator:
         self.soft_skills = self.__shuffle_team(s_skill)
         self.other_skills = self.__shuffle_team(general)
         self.team_size = persons_per_team
-        self.teams = self.__create_empty_teams()
-        self.__distribute_members()
+        self.teams = self.create_empty_teams()
+        self.distribute_members()
 
-    def __create_empty_teams(self) -> dict[str, dict[str, list[str]]]:
+    def create_empty_teams(self) -> dict[str, dict[str, list[str]]]:
         """
         Cria um dicionário que representa as equipes, onde cada equipe é inicializada
         com uma lista vazia para os membros.
@@ -41,37 +46,63 @@ class GroupGenerator:
                 uma chave "membros" associada a uma lista vazia.
         """
 
-        teams: dict = {}
+        teams: dict[str, dict[str, list[str]]] = {}
         for i in range(self.number_of_teams):
-            teams[f"equipe {i + 1}"] = {"membros": []}
+            teams[f"equipe {i + 1}"] = {"n_de_membros": 0, "membros": []} # type: ignore
 
         return teams
 
-    def __distribute_members(self) -> None:
+    def distribute_members(self) -> None:
         """
         Preenche as equipes com membros baseados em suas habilidades técnicas (hard skills),
         habilidades interpessoais (soft skills) e uma lista geral. A distribuição dos membros
         é feita de forma cíclica entre as equipes.
         """
-
         # Adicionando as pessoas com hard skills
+        self.__add_hard_skills()
+        # Adicionando as pessoas com soft skills
+        self.__add_soft_skills()
+        # Adicionando as pessoas restantes aos times
+        self.__add_general()
+        # Atualizando o n de membros de cada equipe
+        self.__update_number_of_member()
+
+    def __add_hard_skills(self) -> None:
+        """
+        Adiciona as pessoas com habilidades técnicas.
+        """
         for i, person_h in enumerate(self.hard_skills):
             self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
                 person_h
             )
 
-        # Adicionando as pessoas com soft skills
+    def __add_soft_skills(self) -> None:
+        """
+        Adiciona as pessoas com habilidades sociais.
+        """
         for i, person_s in enumerate(self.soft_skills):
             self.teams[f"equipe {i % self.number_of_teams + 1}"]["membros"].append(
                 person_s
             )
 
-        # Adicionando as pessoas restantes aos times
+    def __add_general(self) -> None:
+        """
+        Adiciona as pessoas com outros tipos de habilidades.
+        """
         for team in self.teams:
             # Em python, uma lista vazia retorna false
             # se a list tiver ao menos um lemento, ela retorna true
-            while len(self.teams[team]["membros"]) < self.team_size and self.other_skills:
+            while (
+                len(self.teams[team]["membros"]) < self.team_size and self.other_skills
+            ):
                 self.teams[team]["membros"].append(self.other_skills.pop())
+
+    def __update_number_of_member(self) -> None:
+        """
+        Atualiza a quantidade de membros de cada equipe.
+        """
+        for team in self.teams:
+            self.teams[team]["n_de_membros"] = len(self.teams[team]["membros"])  # type: ignore
 
     def __shuffle_team(self, team: list[str]) -> list[str]:
         """
