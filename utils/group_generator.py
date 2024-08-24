@@ -1,5 +1,4 @@
 import random
-from tkinter import NO
 
 
 class GroupGenerator:
@@ -47,9 +46,9 @@ class GroupGenerator:
                 uma chave "membros" associada a uma lista vazia.
         """
 
-        teams: dict = {}
+        teams: dict[str, dict[str, list[str]]] = {}
         for i in range(self.number_of_teams):
-            teams[f"equipe {i + 1}"] = {"n_de_membros": 0, "membros": []}
+            teams[f"equipe {i + 1}"] = {"n_de_membros": 0, "membros": []} # type: ignore
 
         return teams
 
