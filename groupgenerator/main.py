@@ -1,8 +1,5 @@
-from config.settings import *
-from utils.group_generator import GroupGenerator
-from utils.json_utils import write_to_json_file
+from . import settings, json_utils
 
-gg = GroupGenerator(number_of_teams, hard_skill, soft_skill, general, team_size)
-write_to_json_file(
-    gg.teams
-)
+teams: dict[str, dict[str, list[str]]] = {f"equipe {x+1}": {"membros" : []} for x in range(settings.number_of_teams + 1)}
+
+print(teams)
