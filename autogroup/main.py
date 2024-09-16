@@ -1,5 +1,8 @@
-from file_utils import write_to_yaml_file
-from settings import GENERAL, HARD_SKILLS, N_OF_TEAMS, SOFT_SKILLS, TEAM_SIZE
+import random
+
+from autogroup.file_utils import write_to_yaml_file
+from autogroup.settings import (GENERAL, HARD_SKILLS, N_OF_TEAMS,
+                                SOFT_SKILLS, TEAM_SIZE)
 
 teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS)}
 
@@ -32,6 +35,9 @@ def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]])
         while len(teams[team]) < team_size and persons:
             teams[team].append(persons.pop())
 
+random.shuffle(HARD_SKILLS)
+random.shuffle(SOFT_SKILLS)
+random.shuffle(GENERAL)
 
 add_skilled(N_OF_TEAMS, SOFT_SKILLS, teams)
 add_skilled(N_OF_TEAMS, HARD_SKILLS, teams)
