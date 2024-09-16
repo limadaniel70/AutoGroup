@@ -1,7 +1,7 @@
 from json_utils import write_to_json_file
 from settings import GENERAL, HARD_SKILLS, N_OF_TEAMS, SOFT_SKILLS, TEAM_SIZE
 
-teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS + 1)}
+teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS)}
 
 
 def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -> None:
