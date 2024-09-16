@@ -1,11 +1,16 @@
-# Group Generator
+# AutoGroup
+
+> [!NOTE]
+> AutoGroup é um software que gera equipes de forma aleatória levando em consideração as habilidades de cada membro. Assim, evitando que uma única equipe possua muitos membros com habilidades técnicas e as outros com poucos.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Sumário
 
 1. [Introdução](#introdução)
 2. [Como utilizar](#como-utilizar)
 3. [Como funciona](#como-funciona)
-    1. [Priemira forma de distribuição](#primeira-forma-de-distribuição)
+    1. [Primeira forma de distribuição](#primeira-forma-de-distribuição)
     2. [Segunda forma de distribuição](#segunda-forma-de-distribuição)
 
 ## Introdução
@@ -14,14 +19,13 @@ Este projeto foi criado como forma de tornar mais fácil a criação de equipes 
 
 ## Como utilizar
 
-O primeiro passo é preencher o arquivo de configuração (config/settings.py) com os nomes e a quantidade de pessoas em cada time/equipe:
+O primeiro passo é preencher o arquivo de configuração (`settings.py`) com os nomes e a quantidade de pessoas em cada time/equipe:
 
 ```python
 # quantidade de equipes.
 N_OF_TEAMS: int = 5
 
 # A quantidade de pessoas em cada equipe.
-# Note que, se o número de pessoas em cada equipe não for suficiente para alocar todas as pessoas, o excesso ficará sem grupo.
 TEAM_SIZE: int = 6
 
 # pessoas com conhecimento técnico.
@@ -46,9 +50,12 @@ GENERAL: list[str] = [
 ]
 ```
 
+> [!WARNING]
+> Caso a matemática dos grupos estiver errada, podem ocorrer erros. Se, por exemplo, houverem 36 pessoas e essas pessoas forem alocadas em 6 grupos de 5 pessoas, 6 pessoas ficarão sem grupo.
+
 ---
 
-Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arquivo YAML com todos os grupos.
+Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arquivo YAML (por padrão, o nome do arquivo é `teams.yml`) com todos os grupos.
 
 Exemplo de arquivo gerado:
 
@@ -76,13 +83,14 @@ equipe 3:
 - Cameron Mills
 ```
 
-*Todos os nomes foram criados por um gerador aleatório.
+> [!IMPORTANT]
+> Todos os nomes foram criados por um gerador aleatório.
 
 ---
 
 ## Como funciona
 
-Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em outro momento:
+Inicialmente, o programa inicia criando um dicionário vazio, no qual a chave é o nome da equipe e o valor é a lista com os membros da equipe:
 
 ```python
 teams: dict[str, list[str]] = { 
@@ -91,8 +99,10 @@ teams: dict[str, list[str]] = {
 
 }
 ```
+> [!NOTE]
+> No índice da equipe adicionamos 1 para que não exista uma "equipe 0".
 
-Essa função retorna um dicinário neste formato:
+O código anterior retorna um dicinário neste formato:
 
 ```python
 {
@@ -105,7 +115,7 @@ Essa função retorna um dicinário neste formato:
 }
 ```
 
-O segundo é preencher os grupos. Esse processo é realizado pelas seguintes funções:
+O segundo passo é preencher os grupos. Esse processo é realizado pelas seguintes funções:
 
 ```python
 def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -> None:
@@ -119,7 +129,7 @@ def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]])
             teams[team].append(persons.pop())
 ```
 
-É percepitivel que a distribuiçãos dos membros ocorre em três fases distintas: primeiro são adicionados os membros de com habilidades, de forma ciclíca, e,após isso, são adicionados os membros com outros tipos de habilidades de uma forma diferente das demais.
+A primeira função distribui as pessoas com habilidades técnicas ou sociais de forma cíclica, para que não haja várias pessoas em um único grupo. A segunda função distribui as pessoas com outras habilidades de uma forma mais simples, apenas verificando se a equipe está com a quantidade de mebros definida pela configuração `TEAM_SIZE`.
 
 ### Primeira forma de distribuição
 
@@ -144,6 +154,6 @@ def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]])
             teams[team].append(persons.pop())
 ```
 
-Essa forma de distribuição funciona adicionando os membros ao grupo até o grupo ficar cheio e então passa para o próximo. Fazendo isso até acabarem os membros ou acabarem os grupos.
+Essa forma de distribuição funciona adicionando os membros à equipe até a quantidade de membros desta ser igual ao valor definida pela variável `TEAM_SIZE` e após isso passa para a próxima equipe. A função repete esse processo até não haver mais membros para serem adicionados ou acabarem os grupos.
 
 ![Segunda distribuição](img/distribuição-2.gif)
