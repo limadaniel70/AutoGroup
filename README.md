@@ -48,37 +48,32 @@ GENERAL: list[str] = [
 
 ---
 
-Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arquivo json com todos os grupos.
+Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arquivo YAML com todos os grupos.
 
 Exemplo de arquivo gerado:
 
-```json
-{
-    "equipe 1": [
-        "Vivian Rodgers",
-        "April Whitehead",
-        "Pete Anthony",
-        "Silvia Simms",
-        "Katy McFarland",
-        "Lucille Steele"
-    ],
-    "equipe 2": [
-        "Pat Hahn",
-        "Jorge Hester",
-        "Taylor Delaney",
-        "Darryl Ogden",
-        "Nathan Shaw",
-        "Dianne Shields"
-    ],
-    "equipe 3": [
-        "Brandy Brennan",
-        "Betty Blackburn",
-        "Candy Shea",
-        "Kenny Ewing",
-        "Sally Knapp",
-        "Cameron Mills"
-    ]
-}
+```yaml
+equipe 1:
+- Vivian Rodgers
+- April Whitehead
+- Pete Anthony
+- Silvia Simms
+- Katy McFarland
+- Lucille Steele
+equipe 2:
+- Pat Hahn
+- Jorge Hester
+- Taylor Delaney
+- Darryl Ogden
+- Nathan Shaw
+- Dianne Shields
+equipe 3:
+- Brandy Brennan
+- Betty Blackburn
+- Candy Shea
+- Kenny Ewing
+- Sally Knapp
+- Cameron Mills
 ```
 
 *Todos os nomes foram criados por um gerador aleatório.
@@ -92,7 +87,8 @@ Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em 
 ```python
 teams: dict[str, list[str]] = { 
     f"equipe {x+1}": []
-    for x in range(N_OF_TEAMS + 1)
+    for x in range(N_OF_TEAMS)
+
 }
 ```
 
