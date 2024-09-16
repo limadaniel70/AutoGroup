@@ -1,31 +1,20 @@
-import settings
 import json_utils
+from settings import N_OF_TEAMS, TEAM_SIZE, HARD_SKILLS, SOFT_SKILLS, GENERAL
 
-N_OF_TEAMS = settings.number_of_teams
-TEAM_SIZE = settings.team_size
-HARD_SKILLS = settings.hard_skill
-SOFT_SKILLS = settings.soft_skill
-GENERAL = settings.general
+teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS + 1)}
 
-teams: dict[str, dict[str, list[str]]] = {
-    f"equipe {x+1}": {"membros": []} for x in range(settings.number_of_teams + 1)
-}
 
-def add_skilled(
-    n_of_teams: int, persons: list[str], teams: dict[str, dict[str, list[str]]]
-) -> None:
+def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     for i, person in enumerate(persons):
-        teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person)
+        teams[f"equipe {i % n_teams + 1}"].append(person)
 
 
-def add_general(
-    team_size: int, persons: list[str], teams: dict[str, dict[str, list[str]]]
-):
+def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]]):
     for team in teams:
         # Em python, uma lista vazia retorna false
         # se a list tiver ao menos um lemento, ela retorna true
-        while len(teams[team]["membros"]) < team_size and persons:
-            teams[team]["membros"].append(persons.pop())
+        while len(teams[team]) < team_size and persons:
+            teams[team].append(persons.pop())
 
 
 add_skilled(N_OF_TEAMS, SOFT_SKILLS, teams)
