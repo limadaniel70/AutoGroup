@@ -18,28 +18,28 @@ O primeiro passo é preencher o arquivo de configuração (config/settings.py) c
 
 ```python
 # quantidade de equipes.
-number_of_teams: int = 5
+N_OF_TEAMS: int = 5
 
 # A quantidade de pessoas em cada equipe.
 # Note que, se o número de pessoas em cada equipe não for suficiente para alocar todas as pessoas, o excesso ficará sem grupo.
-team_size: int = 6
+TEAM_SIZE: int = 6
 
 # pessoas com conhecimento técnico.
-hard_skill: list = [
+HARD_SKILLS: list[str] = [
     "pessoa 1",
     "pessoa 2",
     ...
 ]
 
 # pessoas com habilidades em liderança ou comunicação
-soft_skill: list = [
+SOFT_SKILLS: list[str] = [
     "pessoa 1",
     "pessoa 2",
     ...
 ]
 
 # pessoas com outras habilidades
-general: list = [
+GENERAL: list[str] = [
     "pessoa 1",
     "pessoa 2",
     ...
@@ -50,40 +50,34 @@ general: list = [
 
 Com isso feito, basta apenas executar o arquivo main.py e ele irá gerar um arquivo json com todos os grupos.
 
-Exemplo de arquivo gerado pelo programa:
+Exemplo de arquivo gerado:
 
 ```json
 {
-    "equipe 1": {
-        "membros": [
-            "Pete Anthony",
-            "Lucille Steele",
-            "Geoffrey Lambert",
-            "Beatrice Griffin",
-            "Silvia Simms",
-            "Kenny Ewing"
-        ]
-    },
-    "equipe 2": {
-        "membros": [
-            "Taylor Delaney",
-            "Sally Knapp",
-            "Betty Blackburn",
-            "Carl Hawkins",
-            "Myra Page",
-            "Hugh Holland"
-        ]
-    },
-    "equipe 3": {
-        "membros": [
-            "Candy Shea",
-            "Rafael Grimes",
-            "Michele McConnell",
-            "Darryl Ogden",
-            "Cameron Mills",
-            "Miranda Elder"
-        ]
-    }
+    "equipe 1": [
+        "Vivian Rodgers",
+        "April Whitehead",
+        "Pete Anthony",
+        "Silvia Simms",
+        "Katy McFarland",
+        "Lucille Steele"
+    ],
+    "equipe 2": [
+        "Pat Hahn",
+        "Jorge Hester",
+        "Taylor Delaney",
+        "Darryl Ogden",
+        "Nathan Shaw",
+        "Dianne Shields"
+    ],
+    "equipe 3": [
+        "Brandy Brennan",
+        "Betty Blackburn",
+        "Candy Shea",
+        "Kenny Ewing",
+        "Sally Knapp",
+        "Cameron Mills"
+    ]
 }
 ```
 
@@ -96,52 +90,37 @@ Exemplo de arquivo gerado pelo programa:
 Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em outro momento:
 
 ```python
-teams: dict[str, dict[str, list[str]]] = { 
-    f"equipe {x+1}": {"membros": []} 
+teams: dict[str, list[str]] = { 
+    f"equipe {x+1}": []
     for x in range(settings.number_of_teams + 1)
 }
 ```
 
 Essa função retorna um dicinário neste formato:
 
-```json
+```python
 {
-    "equipe 1" : {
-        "membros" : []
-    },
-    "equipe 2" : {
-        "membros" : []
-    },
-    "equipe 3" : {
-        "membros" : []
-    },
-
-    ...
+    'equipe 1': [],
+    'equipe 2': [],
+    'equipe 3': [], 
+    'equipe 4': [], 
+    'equipe 5': [], 
+    'equipe 6': []
 }
 ```
 
 O segundo é preencher os grupos. Esse processo é realizado pelas seguintes funções:
 
 ```python
-def add_skilled(
-    n_of_teams: int, 
-    persons: list[str],
-    teams: dict[str, dict[str, list[str]]]
-) -> None:
+def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     for i, person in enumerate(persons):
-        teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person)
+        teams[f"equipe {i % n_teams + 1}"].append(person)
 
 
-def add_general(
-    team_size: int,
-    persons: list[str], 
-    teams: dict[str, dict[str, list[str]]]
-) -> None:
+def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     for team in teams:
-        # Em python, uma lista vazia retorna false
-        # se a list tiver ao menos um lemento, ela retorna true
-        while len(teams[team]["membros"]) < team_size and persons:
-            teams[team]["membros"].append(persons.pop())
+        while len(teams[team]) < team_size and persons:
+            teams[team].append(persons.pop())
 ```
 
 É percepitivel que a distribuiçãos dos membros ocorre em três fases distintas: primeiro são adicionados os membros de com habilidades, de forma ciclíca, e,após isso, são adicionados os membros com outros tipos de habilidades de uma forma diferente das demais.
@@ -149,9 +128,9 @@ def add_general(
 ### Primeira forma de distribuição
 
 ```python
-def add_skilled(n_of_teams: int, persons: list[str], teams: dict[str, dict[str, list[str]]]) -> None:
+def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     for i, person in enumerate(persons):
-        teams[f"equipe {i % n_of_teams + 1}"]["membros"].append(person)
+        teams[f"equipe {i % n_teams + 1}"].append(person)
 ```
 
 Para garantir que a distribuição não concentre pessoas com habilidades técnicas e sociais em um único grupo, essas pessoas são distribuídas em vários grupos de forma cíclica.
@@ -163,12 +142,10 @@ Este é um exemplo de como funciona:
 ### Segunda forma de distribuição
 
 ```python
-def add_general(team_size: int, persons: list[str], teams: dict[str, dict[str, list[str]]]) -> None:
+def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     for team in teams:
-        # Em python, uma lista vazia retorna false
-        # se a list tiver ao menos um lemento, ela retorna true
-        while len(teams[team]["membros"]) < team_size and persons:
-            teams[team]["membros"].append(persons.pop())
+        while len(teams[team]) < team_size and persons:
+            teams[team].append(persons.pop())
 ```
 
 Essa forma de distribuição funciona adicionando os membros ao grupo até o grupo ficar cheio e então passa para o próximo. Fazendo isso até acabarem os membros ou acabarem os grupos.
