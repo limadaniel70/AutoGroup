@@ -88,6 +88,7 @@ Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em 
 teams: dict[str, list[str]] = { 
     f"equipe {x+1}": []
     for x in range(N_OF_TEAMS)
+
 }
 ```
 
