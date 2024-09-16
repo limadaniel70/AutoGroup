@@ -92,7 +92,7 @@ Inicialmente, o programa inicia criando grupos vazios para serem preenchidos em 
 ```python
 teams: dict[str, list[str]] = { 
     f"equipe {x+1}": []
-    for x in range(settings.number_of_teams + 1)
+    for x in range(N_OF_TEAMS + 1)
 }
 ```
 
