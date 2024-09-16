@@ -1,4 +1,4 @@
-from json_utils import write_to_json_file
+from file_utils import write_to_yaml_file
 from settings import GENERAL, HARD_SKILLS, N_OF_TEAMS, SOFT_SKILLS, TEAM_SIZE
 
 teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS)}
@@ -36,4 +36,4 @@ def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]])
 add_skilled(N_OF_TEAMS, SOFT_SKILLS, teams)
 add_skilled(N_OF_TEAMS, HARD_SKILLS, teams)
 add_general(TEAM_SIZE, GENERAL, teams)
-write_to_json_file(teams)
+write_to_yaml_file(teams)
