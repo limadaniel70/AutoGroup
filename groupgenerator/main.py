@@ -1,5 +1,5 @@
 from json_utils import write_to_json_file
-from settings import N_OF_TEAMS, TEAM_SIZE, HARD_SKILLS, SOFT_SKILLS, GENERAL
+from settings import GENERAL, HARD_SKILLS, N_OF_TEAMS, SOFT_SKILLS, TEAM_SIZE
 
 teams: dict[str, list[str]] = {f"equipe {x+1}": [] for x in range(N_OF_TEAMS + 1)}
 
