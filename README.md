@@ -82,6 +82,36 @@ equipe 3:
 - Sally Knapp
 - Cameron Mills
 ```
+Exemplo de arquivo gerado considerando que não havia grupos suficientes para alocar todas as pessoas:
+
+```yaml
+equipe 1:
+- Brandy Brennan
+- April Whitehead
+- Candy Shea
+- Roman Hawley
+- Katy McFarland
+- Terry James
+equipe 2:
+- Angela Becker
+- Pat Hahn
+- Taylor Delaney
+- Kenny Ewing
+- Lucille Steele
+- Nathan Shaw
+equipe 3:
+- Jorge Hester
+- Frederick Rice
+- Pete Anthony
+- Rosa Roberts
+- Myra Page
+- Beatrice Griffin
+remainder:
+- Michele McConnell
+- Hugh Holland
+- Sally Knapp
+- Silvia Simms
+```
 
 > [!IMPORTANT]
 > Todos os nomes foram criados por um gerador aleatório.
