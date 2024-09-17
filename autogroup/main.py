@@ -19,9 +19,7 @@ def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -
         teams[f"equipe {i % n_teams + 1}"].append(person)
 
 
-def add_general(
-    team_size: int, persons: list[str], teams: dict[str, list[str]]
-) -> None:
+def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]]) -> None:
     """
     Adiciona as pessoas com outros tipos de habilidades.
 
