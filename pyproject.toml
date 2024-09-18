@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "autogroup"
-version = "0.5.0"
+version = "0.5.1"
 description = "Cria grupos/equipes aleatórias baseadas em hard skills e soft skills."
 authors = ["Daniel Lima"]
 license = "MIT"
