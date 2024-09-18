@@ -61,7 +61,7 @@ add_skilled(N_OF_TEAMS, HARD_SKILLS, teams)
 add_general(TEAM_SIZE, GENERAL, teams)
 
 remainder = get_remaining(teams, GENERAL)
-if not remainder == None:
+if not remainder:
     teams["remainder"] = list(remainder)
 
 write_to_yaml_file(teams)
