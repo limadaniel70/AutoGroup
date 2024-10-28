@@ -19,7 +19,9 @@ def add_skilled(n_teams: int, persons: list[str], teams: dict[str, list[str]]) -
         teams[f"equipe {i % n_teams + 1}"].append(person)
 
 
-def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]]) -> None:
+def add_general(
+    team_size: int, persons: list[str], teams: dict[str, list[str]]
+) -> None:
     """
     Adiciona as pessoas com outros tipos de habilidades.
 
@@ -28,11 +30,9 @@ def add_general(team_size: int, persons: list[str], teams: dict[str, list[str]])
         persons (list[str]): a lista de pessoas que serão adicionadas às equipes.
         teams (dict[str, list[str]]): o dicionário com as equipes.
     """
-    for team in teams:
-        # Em python, uma lista vazia retorna false
-        # se a list tiver ao menos um lemento, ela retorna true
-        while len(teams[team]) < team_size and persons:
-            teams[team].append(persons.pop())
+    for team_name, members in teams.items():
+        while len(members) < team_size and persons:
+            teams[team_name].append(persons.pop())
 
 
 def get_remaining(teams: dict[str, list[str]], general: list[str]) -> set[str]:
@@ -52,9 +52,12 @@ def get_remaining(teams: dict[str, list[str]], general: list[str]) -> set[str]:
     return remaining
 
 
-random.shuffle(HARD_SKILLS)
-random.shuffle(SOFT_SKILLS)
-random.shuffle(GENERAL)
+def shuffle_lists(*items: list[any]):
+    for item in items:
+        random.shuffle(item)
+
+
+shuffle_lists(GENERAL, SOFT_SKILLS, HARD_SKILLS)
 
 add_skilled(N_OF_TEAMS, SOFT_SKILLS, teams)
 add_skilled(N_OF_TEAMS, HARD_SKILLS, teams)
