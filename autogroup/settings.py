@@ -10,7 +10,7 @@ HARD_SKILLS: list[str] = [
     "Taylor Delaney",
     "Candy Shea",
     "Iris Platt",
-    "Walter Hanson"
+    "Walter Hanson",
 ]
 
 # pessoas com habilidades em liderança ou comunicação
@@ -24,7 +24,7 @@ SOFT_SKILLS: list[str] = [
     "Jorge Hester",
     "Betty Blackburn",
     "Ron Harden",
-    "Angela Becker"
+    "Angela Becker",
 ]
 
 # pessoas com outras habilidades
@@ -53,5 +53,5 @@ GENERAL: list[str] = [
     "Darryl Ogden",
     "Lucille Steele",
     "Katy McFarland",
-    "Silvia Simms"
+    "Silvia Simms",
 ]
